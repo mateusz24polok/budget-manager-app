@@ -9,4 +9,5 @@ export interface SingleExpense {
 export interface TableHeaderData {
   name: string;
   label: string;
+  sortable: boolean;
 }
