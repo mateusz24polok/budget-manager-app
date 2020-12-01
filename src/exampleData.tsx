@@ -62,4 +62,9 @@ export const exampleHeaderData: Array<TableHeaderData> = [
     name: "date",
     label: "Date",
   },
+
+  {
+    name: "actions",
+    label: "Edit / Remove",
+  },
 ];
