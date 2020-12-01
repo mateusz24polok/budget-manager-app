@@ -1,9 +1,8 @@
 import React from "react";
+import MainPage from "./components/pages/MainPage";
 
 const App: React.FC = () => {
-  return (
-    <h1>Starting Point</h1>
-  );
-}
+  return <MainPage />;
+};
 
 export default App;
