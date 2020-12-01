@@ -5,3 +5,8 @@ export interface SingleExpense {
   category: string;
   date: Date;
 }
+
+export interface TableHeaderData {
+  name: string;
+  label: string;
+}

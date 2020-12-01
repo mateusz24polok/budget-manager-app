@@ -1,4 +1,4 @@
-import { SingleExpense } from "./interfaces";
+import { SingleExpense, TableHeaderData } from "./interfaces";
 
 export const exampleData: Array<SingleExpense> = [
   {
@@ -39,5 +39,27 @@ export const exampleData: Array<SingleExpense> = [
     cost: 20,
     category: "Hygiene",
     date: new Date(),
+  },
+];
+
+export const exampleHeaderData: Array<TableHeaderData> = [
+  {
+    name: "expense",
+    label: "Expense",
+  },
+
+  {
+    name: "cost",
+    label: "Cost $",
+  },
+
+  {
+    name: "category",
+    label: "Category",
+  },
+
+  {
+    name: "date",
+    label: "Date",
   },
 ];
