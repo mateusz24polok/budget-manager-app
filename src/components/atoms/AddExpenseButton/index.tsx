@@ -2,9 +2,18 @@ import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import React from "react";
 
-const AddExpenseButton = () => {
+interface AddExpenseButtonProps {
+  onClick: () => void;
+}
+
+const AddExpenseButton: React.FC<AddExpenseButtonProps> = ({ onClick }) => {
   return (
-    <Button startIcon={<Add />} color="primary" variant="contained">
+    <Button
+      onClick={onClick}
+      startIcon={<Add />}
+      color="primary"
+      variant="contained"
+    >
       Add Item
     </Button>
   );
