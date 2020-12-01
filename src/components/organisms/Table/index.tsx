@@ -6,9 +6,10 @@ import {
   TableHead,
   TableCell,
   TableRow,
-  TableBody
+  TableBody,
 } from "@material-ui/core";
 import { SingleExpense, TableHeaderData } from "../../../interfaces";
+import Toolbar from "../../molecules/Toolbar";
 
 interface TableProps {
   bodyData: Array<SingleExpense>;
@@ -18,6 +19,7 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   return (
     <Paper>
+      <Toolbar />
       <TableContainer>
         <MuiTable>
           <TableHead>
