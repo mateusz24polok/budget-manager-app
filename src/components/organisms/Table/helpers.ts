@@ -10,14 +10,14 @@ if (b[orderBy] < a[orderBy]) {
     return 0;
 };
   
-export function getComparator<Key extends keyof any>(
+export const getComparator = <Key extends keyof any>(
     order: Order,
     orderBy: Key,
-  ): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
+  ): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number => {
     return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
-  }
+};
   
 export const stableSort = <T>(array: T[], comparator: (a: T, b: T) => number) => {
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
