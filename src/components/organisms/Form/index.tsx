@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 
   pageContent: {
-    margin: theme.spacing(5),
-    padding: theme.spacing(3),
+    margin: theme.spacing(0),
+    padding: theme.spacing(2),
     maxWidth: "600px",
   },
 }));
@@ -44,10 +44,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Form = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.pageContent}>
-      <Typography variant="h4" component="h2">
-        Add new / edit cost
-      </Typography>
+    // <Paper className={classes.pageContent}>
+    //   <Typography variant="h4" component="h2">
+    //     Add new / edit cost
+    //   </Typography>
       <form className={classes.root}>
         <TextField
           fullWidth
@@ -90,7 +90,7 @@ const Form = () => {
           />
         </MuiPickersUtilsProvider>
       </form>
-    </Paper>
+    // </Paper>
   );
 };
 
