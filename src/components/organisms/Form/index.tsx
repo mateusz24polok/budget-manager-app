@@ -1,12 +1,10 @@
 import React from "react";
 import {
   TextField,
-  Paper,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Typography,
   makeStyles,
   Theme,
 } from "@material-ui/core";
@@ -33,21 +31,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       flexDirection: "column",
     },
   },
-
-  pageContent: {
-    margin: theme.spacing(0),
-    padding: theme.spacing(2),
-    maxWidth: "600px",
-  },
 }));
 
 const Form = () => {
   const classes = useStyles();
   return (
-    // <Paper className={classes.pageContent}>
-    //   <Typography variant="h4" component="h2">
-    //     Add new / edit cost
-    //   </Typography>
       <form className={classes.root}>
         <TextField
           fullWidth
@@ -90,7 +78,6 @@ const Form = () => {
           />
         </MuiPickersUtilsProvider>
       </form>
-    // </Paper>
   );
 };
 

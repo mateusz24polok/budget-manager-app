@@ -2,16 +2,16 @@ import React from "react";
 import {
   Dialog as MuiDialog,
   DialogTitle,
-  DialogContentText,
   DialogContent,
   DialogActions,
-  Button,
+  Grid,
   makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
 import Form from "../../organisms/Form";
 import ActionButton from "../../atoms/ActionButton";
+import DialogButton from "../../atoms/DialogButton";
 import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,10 +46,10 @@ const Dialog = () => {
     >
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
-          <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-            Tytuł
+          <Typography variant="h5" component="h2" style={{ flexGrow: 1 }}>
+            Add / edit expense
           </Typography>
-          <ActionButton onClick={()=>{}} color="secondary">
+          <ActionButton onClick={() => {}} color="secondary">
             <Close />
           </ActionButton>
         </div>
@@ -57,6 +57,30 @@ const Dialog = () => {
       <DialogContent>
         <Form />
       </DialogContent>
+      <DialogActions>
+        <Grid container justify="center" spacing={2}>
+          <Grid item xs={5}>
+            <DialogButton
+              variant="contained"
+              onClick={handleClose}
+              color="primary"
+              fullWidth
+            >
+              Reset
+            </DialogButton>
+          </Grid>
+          <Grid item xs={5}>
+            <DialogButton
+              variant="contained"
+              onClick={handleClose}
+              color="primary"
+              fullWidth
+            >
+              Add
+            </DialogButton>
+          </Grid>
+        </Grid>
+      </DialogActions>
     </MuiDialog>
   );
 };
