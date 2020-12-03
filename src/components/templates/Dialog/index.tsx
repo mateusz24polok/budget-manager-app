@@ -66,30 +66,6 @@ const Dialog = () => {
       <DialogContent>
         <Form />
       </DialogContent>
-      <DialogActions>
-        <Grid container justify="center" spacing={2}>
-          <Grid item xs={5}>
-            <DialogButton
-              variant="contained"
-              onClick={handleClose}
-              color="primary"
-              fullWidth
-            >
-              Reset
-            </DialogButton>
-          </Grid>
-          <Grid item xs={5}>
-            <DialogButton
-              variant="contained"
-              onClick={handleClose}
-              color="primary"
-              fullWidth
-            >
-              Add
-            </DialogButton>
-          </Grid>
-        </Grid>
-      </DialogActions>
     </MuiDialog>
   );
 };

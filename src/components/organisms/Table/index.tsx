@@ -32,8 +32,8 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
     dispatch(removeExpense(id));
   };
 
-  const handleOpenEditExpenseModal = () => {
-    dispatch(openEditExpenseModal());
+  const handleOpenEditExpenseModal = (editedExpense: SingleExpense) => {
+    dispatch(openEditExpenseModal(editedExpense));
   }
 
   //Pagination variables of state
@@ -104,7 +104,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell>{costDataRow.category}</TableCell>
                 <TableCell>{costDataRow.date.toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <ActionButton onClick={handleOpenEditExpenseModal} color="primary">
+                  <ActionButton onClick={()=>handleOpenEditExpenseModal(costDataRow)} color="primary">
                     <EditOutlined />
                   </ActionButton>
                   <ActionButton onClick={()=>handleRemoveExpense(costDataRow.id)} color="secondary">

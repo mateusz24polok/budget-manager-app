@@ -8,9 +8,10 @@ interface DialogButtonProps {
   variant?: "text" | "outlined" | "contained" | undefined
   children?: React.ReactText;
   fullWidth?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
-const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, variant, children, fullWidth }) => {
+const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, variant, children, fullWidth, type }) => {
   return (
     <Button
       onClick={onClick}
@@ -18,6 +19,7 @@ const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, 
       color={color}
       variant={variant}
       fullWidth={fullWidth}
+      type={type}
     >
       {children}
     </Button>
