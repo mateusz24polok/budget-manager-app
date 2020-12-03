@@ -22,6 +22,7 @@ import {
 import { Formik, Form as FormikForm, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
+import { ErrorTypes } from "../../../interfaces";
 
 interface FormProps {
   formType: "add" | "edit";
@@ -51,8 +52,17 @@ const Form: React.FC<FormProps> = ({ formType }) => {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Formik
         initialValues={newOrEditExpense}
-        validate={(values) => {}}
-        onSubmit={(values, { setSubmitting }) => {
+        validate={(values) => {
+          const errors: ErrorTypes = {};
+          if (!values.expense.trim()) {
+            errors.expense = "Expense is required";
+          }
+          if (!values.cost) {
+            errors.cost = "Cost is required";
+          }
+          return errors;
+        }}
+        onSubmit={(values) => {
           if (isAddExpenseModalOpen) {
             dispatch(addExpense(values));
             dispatch(closeAddExpenseModal());
@@ -62,7 +72,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
           }
         }}
       >
-        {({ submitForm, isSubmitting, touched, errors, resetForm }) => (
+        {({ submitForm, errors, resetForm }) => (
           <FormikForm className={classes.root}>
             <Field
               fullWidth
@@ -85,7 +95,6 @@ const Form: React.FC<FormProps> = ({ formType }) => {
             <FormControl fullWidth variant="outlined">
               <InputLabel>Category</InputLabel>
               <Field component={Select} label="Category" name="category">
-                <MenuItem value="">None</MenuItem>
                 {categories.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}

@@ -11,3 +11,8 @@ export interface TableHeaderData {
   label: string;
   sortable: boolean;
 }
+
+export interface ErrorTypes {
+  expense?: string;
+  cost?: string;
+}
