@@ -23,6 +23,10 @@ import { Formik, Form as FormikForm, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
 
+interface FormProps {
+  formType: "add" | "edit";
+}
+
 const categories = ["Electronics", "Grocery", "Bills", "Hobby", "Hygiene"];
 
 const useStyles = makeStyles({
@@ -36,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Form = () => {
+const Form: React.FC<FormProps> = ({ formType }) => {
   const dispatch = useDispatch();
   const isAddExpenseModalOpen = useSelector(selectIsAddExpenseModalOpen);
   const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
@@ -119,7 +123,7 @@ const Form = () => {
                   fullWidth
                   type="submit"
                 >
-                  Add
+                  {formType === "add" ? "Add" : "Edit"}
                 </DialogButton>
               </Grid>
             </Grid>

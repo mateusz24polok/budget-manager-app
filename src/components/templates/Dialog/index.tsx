@@ -3,23 +3,22 @@ import {
   Dialog as MuiDialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
-  Grid,
   makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
 import Form from "../../organisms/Form";
 import ActionButton from "../../atoms/ActionButton";
-import DialogButton from "../../atoms/DialogButton";
 import { Close } from "@material-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  selectIsAddExpenseModalOpen,
-  selectIsEditExpenseModalOpen,
   closeAddExpenseModal,
   closeEditExpenseModal,
 } from "../../../slices/ExpensesSlice";
+
+interface DialogProps {
+  actionType: "edit" | "add";
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   dialogWrapper: {
@@ -33,30 +32,24 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Dialog = () => {
+const Dialog: React.FC<DialogProps> = ({ actionType }) => {
   const dispatch = useDispatch();
-  const isAddExpenseModalOpen = useSelector(selectIsAddExpenseModalOpen);
-  const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const classes = useStyles();
 
   const handleClose = () => {
-    if (isAddExpenseModalOpen) {
+    if (actionType === "add") {
       dispatch(closeAddExpenseModal());
-    } else if (isEditExpenseModalOpen) {
+    } else if (actionType === "edit") {
       dispatch(closeEditExpenseModal());
     }
   };
 
   return (
-    <MuiDialog
-      open={isAddExpenseModalOpen || isEditExpenseModalOpen}
-      onClose={() => {}}
-      classes={{ paper: classes.dialogWrapper }}
-    >
+    <MuiDialog open={true} classes={{ paper: classes.dialogWrapper }}>
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
           <Typography variant="h5" component="h2" style={{ flexGrow: 1 }}>
-            {isAddExpenseModalOpen ? "Add Expense" : "Edit Expense"}
+            {actionType === "add" ? "Add Expense" : "Edit Expense"}
           </Typography>
           <ActionButton onClick={handleClose} color="secondary">
             <Close />
@@ -64,7 +57,7 @@ const Dialog = () => {
         </div>
       </DialogTitle>
       <DialogContent>
-        <Form />
+        <Form formType={actionType} />
       </DialogContent>
     </MuiDialog>
   );
