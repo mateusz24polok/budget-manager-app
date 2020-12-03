@@ -17,7 +17,7 @@ import Toolbar from "../../molecules/Toolbar";
 import ActionButton from "../../atoms/ActionButton";
 import { getComparator, stableSort } from "./helpers";
 import { useDispatch } from "react-redux";
-import { removeExpense } from "../../../slices/ExpensesSlice";
+import { removeExpense, openEditExpenseModal } from "../../../slices/ExpensesSlice";
 
 interface TableProps {
   bodyData: Array<SingleExpense>;
@@ -31,6 +31,10 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   const handleRemoveExpense = (id: number) => {
     dispatch(removeExpense(id));
   };
+
+  const handleOpenEditExpenseModal = () => {
+    dispatch(openEditExpenseModal());
+  }
 
   //Pagination variables of state
 
@@ -100,7 +104,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell>{costDataRow.category}</TableCell>
                 <TableCell>{costDataRow.date.toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <ActionButton onClick={()=> console.log("Here will be expense adit functionality")} color="primary">
+                  <ActionButton onClick={handleOpenEditExpenseModal} color="primary">
                     <EditOutlined />
                   </ActionButton>
                   <ActionButton onClick={()=>handleRemoveExpense(costDataRow.id)} color="secondary">

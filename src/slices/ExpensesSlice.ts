@@ -47,8 +47,8 @@ const ExpensesSlice = createSlice({
 
 export const selectExpensesState = (state: RootState) => state.expenses;
 export const selectExpenses = (state: RootState) => selectExpensesState(state).expenses;
-export const selectisAddExpenseModalOpen = (state: RootState) => selectExpensesState(state).isAddExpenseModalOpen;
-export const selectisEditExpenseModalOpen = (state: RootState) => selectExpensesState(state).isEditExpenseModalOpen;
+export const selectIsAddExpenseModalOpen = (state: RootState) => selectExpensesState(state).isAddExpenseModalOpen;
+export const selectIsEditExpenseModalOpen = (state: RootState) => selectExpensesState(state).isEditExpenseModalOpen;
 
 export const {
   addExpense,

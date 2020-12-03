@@ -53,8 +53,8 @@ const Form = () => {
         />
 
         <FormControl fullWidth variant="outlined">
-          <InputLabel>Department</InputLabel>
-          <Select label="Department">
+          <InputLabel>Category</InputLabel>
+          <Select label="Category">
             <MenuItem value="">None</MenuItem>
             {categories.map((item) => (
               <MenuItem key={item} value={item}>

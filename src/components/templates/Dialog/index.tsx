@@ -13,6 +13,13 @@ import Form from "../../organisms/Form";
 import ActionButton from "../../atoms/ActionButton";
 import DialogButton from "../../atoms/DialogButton";
 import { Close } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectIsAddExpenseModalOpen,
+  selectIsEditExpenseModalOpen,
+  closeAddExpenseModal,
+  closeEditExpenseModal,
+} from "../../../slices/ExpensesSlice";
 
 const useStyles = makeStyles((theme: Theme) => ({
   dialogWrapper: {
@@ -27,29 +34,31 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Dialog = () => {
+  const dispatch = useDispatch();
+  const isAddExpenseModalOpen = useSelector(selectIsAddExpenseModalOpen);
+  const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
-    setOpen(false);
+    if (isAddExpenseModalOpen) {
+      dispatch(closeAddExpenseModal());
+    } else if (isEditExpenseModalOpen) {
+      dispatch(closeEditExpenseModal());
+    }
   };
 
   return (
     <MuiDialog
-      open={open}
-      onClose={handleClose}
+      open={isAddExpenseModalOpen || isEditExpenseModalOpen}
+      onClose={() => {}}
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
           <Typography variant="h5" component="h2" style={{ flexGrow: 1 }}>
-            Add / edit expense
+            {isAddExpenseModalOpen ? "Add Expense" : "Edit Expense"}
           </Typography>
-          <ActionButton onClick={() => {}} color="secondary">
+          <ActionButton onClick={handleClose} color="secondary">
             <Close />
           </ActionButton>
         </div>
