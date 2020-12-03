@@ -10,17 +10,19 @@ type ExpensesSliceState = {
   newOrEditedExpense: SingleExpense;
 };
 
-const initialState: ExpensesSliceState = {
-  expenses: exampleData,
-  isAddExpenseModalOpen: false,
-  isEditExpenseModalOpen: false,
-  newOrEditedExpense: {
+const initialExpense: SingleExpense = {
     id: Math.random(),
     expense: "",
     cost: 0,
     category: "Electronics",
     date: new Date(),
-  },
+}
+
+const initialState: ExpensesSliceState = {
+  expenses: exampleData,
+  isAddExpenseModalOpen: false,
+  isEditExpenseModalOpen: false,
+  newOrEditedExpense: initialExpense,
 };
 
 const ExpensesSlice = createSlice({
@@ -32,7 +34,8 @@ const ExpensesSlice = createSlice({
     },
 
     editExpense: (state, action: PayloadAction<SingleExpense>) => {
-      state.expenses[state.newOrEditedExpense.id] = {
+      const indexOfEditedExpense = state.expenses.findIndex(expense => expense.id === action.payload.id)
+      state.expenses[indexOfEditedExpense] = {
         ...action.payload,
         id: state.newOrEditedExpense.id,
       };
@@ -50,6 +53,7 @@ const ExpensesSlice = createSlice({
 
     closeAddExpenseModal: (state) => {
       state.isAddExpenseModalOpen = false;
+      state.newOrEditedExpense = initialExpense;
     },
 
     openEditExpenseModal: (state, action: PayloadAction<SingleExpense>) => {
@@ -59,6 +63,7 @@ const ExpensesSlice = createSlice({
 
     closeEditExpenseModal: (state) => {
       state.isEditExpenseModalOpen = false;
+      state.newOrEditedExpense = initialExpense;
     },
   },
 });

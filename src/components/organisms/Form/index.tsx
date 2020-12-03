@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  // TextField,
   FormControl,
   InputLabel,
   MenuItem,
-  // Select,
   makeStyles,
-  Theme,
   Grid,
 } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -20,21 +17,15 @@ import {
   selectIsEditExpenseModalOpen,
   addExpense,
   selectNewOrEditedExpense,
-  editExpense
+  editExpense,
 } from "../../../slices/ExpensesSlice";
 import { Formik, Form as FormikForm, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
 
-const categories = [
-  "Electronics",
-  "Grocery",
-  "Bills",
-  "Hobby",
-  "Hygiene",
-];
+const categories = ["Electronics", "Grocery", "Bills", "Hobby", "Hygiene"];
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   root: {
     "& .MuiFormControl-root": {
       width: "100%",
@@ -43,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       flexDirection: "column",
     },
   },
-}));
+});
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -51,8 +42,6 @@ const Form = () => {
   const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const newOrEditExpense = useSelector(selectNewOrEditedExpense);
   const classes = useStyles();
-
-
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -62,7 +51,6 @@ const Form = () => {
         onSubmit={(values, { setSubmitting }) => {
           if (isAddExpenseModalOpen) {
             dispatch(addExpense(values));
-            console.log(values);
             dispatch(closeAddExpenseModal());
           } else if (isEditExpenseModalOpen) {
             dispatch(editExpense(values));
@@ -87,6 +75,7 @@ const Form = () => {
               type="number"
               fullWidth
               component={TextField}
+              InputProps={{ inputProps: { min: 0 } }}
             />
 
             <FormControl fullWidth variant="outlined">
@@ -117,6 +106,7 @@ const Form = () => {
                   onClick={resetForm}
                   color="primary"
                   fullWidth
+                  type="reset"
                 >
                   Reset
                 </DialogButton>
