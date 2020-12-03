@@ -1,17 +1,24 @@
 import React from "react";
 import Table from "../../organisms/Table";
-import Form from "../../organisms/Form";
+import Dialog from "../../templates/Dialog";
 import { exampleHeaderData } from "../../../exampleData";
 import { useSelector } from "react-redux";
-import { selectExpenses } from "../../../slices/ExpensesSlice";
+import {
+  selectExpenses,
+  selectIsEditExpenseModalOpen,
+  selectIsAddExpenseModalOpen,
+} from "../../../slices/ExpensesSlice";
 
 const MainPage: React.FC = () => {
   const expenses = useSelector(selectExpenses);
-  console.log(expenses);
+  const isAddExpenseModalOpen = useSelector(selectIsAddExpenseModalOpen);
+  const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
+
   return (
     <>
       <Table bodyData={expenses} headData={exampleHeaderData} />
-      <Form />
+      {isAddExpenseModalOpen && <Dialog actionType="add" />}
+      {isEditExpenseModalOpen && <Dialog actionType="edit" />}
     </>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, Toolbar as MuiToolbar } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import SearchInput from "../../atoms/SearchInput";
-import AddExpenseButton from "../../atoms/AddExpenseButton";
+import DialogButton from "../../atoms/DialogButton";
 import { useStyles } from "./style";
 import { useDispatch } from "react-redux";
 import { openAddExpenseModal } from "../../../slices/ExpensesSlice";
@@ -18,7 +19,14 @@ const Toolbar = () => {
     <MuiToolbar className={classes.margin}>
       <Grid container justify="space-between" alignItems="center">
         <SearchInput />
-        <AddExpenseButton onClick={openAddExpenseModalHandler} />
+        <DialogButton
+          onClick={openAddExpenseModalHandler}
+          variant="contained"
+          color="primary"
+          startIcon={<Add />}
+        >
+          Add Expense
+        </DialogButton>
       </Grid>
     </MuiToolbar>
   );
