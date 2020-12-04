@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { EditOutlined, Delete } from "@material-ui/icons";
 import {
   Paper,
@@ -24,8 +24,9 @@ import ActionButton from "../../atoms/ActionButton";
 import {
   removeExpense,
   openEditExpenseModal,
+  selectFitersOutExpensesValue,
 } from "../../../slices/ExpensesSlice";
-import { getComparator, stableSort, calculateSummaryExpenses } from "./helpers";
+import { getComparator, stableSort, calculateSummaryExpenses, filterExpenses } from "./helpers";
 import { useStyles } from "./styles";
 
 
@@ -37,6 +38,8 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const filtersOutExpensesValue = useSelector(selectFitersOutExpensesValue);
 
   const handleRemoveExpense = (id: number) => {
     dispatch(removeExpense(id));
@@ -85,7 +88,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   };
 
   const sortedAndPagingData = stableSort<any>(
-    bodyData,
+    filterExpenses(bodyData, filtersOutExpensesValue),
     getComparator(order, orderBy)
   ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 

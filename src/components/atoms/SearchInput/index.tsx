@@ -6,7 +6,7 @@ import { useStyles } from "./styles";
 interface SearchInputProps {
   value?: string;
   size?: "small" | "medium" | undefined
-  onChange?: () => void;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, size }) => {
