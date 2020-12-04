@@ -11,13 +11,23 @@ import {
   TableBody,
   TablePagination,
   TableSortLabel,
+  TableFooter,
+  Typography,
 } from "@material-ui/core";
-import { SingleExpenseInterface, TableHeaderDataInterface, SortingOrder } from "../../../interfaces";
+import {
+  SingleExpenseInterface,
+  TableHeaderDataInterface,
+  SortingOrder,
+} from "../../../interfaces";
 import Toolbar from "../../molecules/Toolbar";
 import ActionButton from "../../atoms/ActionButton";
-import { removeExpense, openEditExpenseModal } from "../../../slices/ExpensesSlice";
-import { getComparator, stableSort } from "./helpers";
+import {
+  removeExpense,
+  openEditExpenseModal,
+} from "../../../slices/ExpensesSlice";
+import { getComparator, stableSort, calculateSummaryExpenses } from "./helpers";
 import { useStyles } from "./styles";
+
 
 interface TableProps {
   bodyData: Array<SingleExpenseInterface>;
@@ -32,9 +42,11 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
     dispatch(removeExpense(id));
   };
 
-  const handleOpenEditExpenseModal = (editedExpense: SingleExpenseInterface) => {
+  const handleOpenEditExpenseModal = (
+    editedExpense: SingleExpenseInterface
+  ) => {
     dispatch(openEditExpenseModal(editedExpense));
-  }
+  };
 
   //Pagination variables of state
 
@@ -61,7 +73,9 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   };
 
   //Sorting variables of state
-  const [order, setOrder] = useState<SortingOrder.Ascending | SortingOrder.Descending>(SortingOrder.Ascending);
+  const [order, setOrder] = useState<
+    SortingOrder.Ascending | SortingOrder.Descending
+  >(SortingOrder.Ascending);
   const [orderBy, setOrderBy] = useState<string>("");
 
   const handleRequestSort = (property: string) => {
@@ -76,7 +90,10 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <Paper>
+    <Paper className={classes.root}>
+      <Typography variant="h3" component="h1" align="center">
+        Budget Manager
+      </Typography>
       <Toolbar />
       <TableContainer>
         <MuiTable className={classes.table}>
@@ -86,7 +103,11 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell key={dataHeadCell.name}>
                   <TableSortLabel
                     active={orderBy === dataHeadCell.name}
-                    direction={orderBy === dataHeadCell.name ? order : SortingOrder.Ascending}
+                    direction={
+                      orderBy === dataHeadCell.name
+                        ? order
+                        : SortingOrder.Ascending
+                    }
                     onClick={() => handleRequestSort(dataHeadCell.name)}
                     disabled={!dataHeadCell.sortable}
                   >
@@ -104,16 +125,28 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell>{costDataRow.category}</TableCell>
                 <TableCell>{costDataRow.date.toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <ActionButton onClick={()=>handleOpenEditExpenseModal(costDataRow)} color="primary">
+                  <ActionButton
+                    onClick={() => handleOpenEditExpenseModal(costDataRow)}
+                    color="primary"
+                  >
                     <EditOutlined />
                   </ActionButton>
-                  <ActionButton onClick={()=>handleRemoveExpense(costDataRow.id)} color="secondary">
+                  <ActionButton
+                    onClick={() => handleRemoveExpense(costDataRow.id)}
+                    color="secondary"
+                  >
                     <Delete />
                   </ActionButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell variant="head">Summary Expenses</TableCell>
+              <TableCell variant="head">{calculateSummaryExpenses(bodyData)}</TableCell>
+            </TableRow>
+          </TableFooter>
         </MuiTable>
       </TableContainer>
       <TablePagination

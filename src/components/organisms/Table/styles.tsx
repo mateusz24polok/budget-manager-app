@@ -1,6 +1,11 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    paddingTop: "20px",
+    margin: theme.spacing(3)
+  },
+
   table: {
     border: "2px solig green",
     marginTop: theme.spacing(3),
@@ -18,23 +23,16 @@ export const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 
-  "@media (max-width: 960px)": {
+  "@media (max-width: 670px)": {
     table: {
       "& thead th": {
         fontSize: "10px",
+        padding: "8px"
       },
       "& tbody td": {
         fontSize: "10px",
+        padding: "8px"
       },
     },
-  },
-
-  newButton: {
-    textTransform: "capitalize",
-  },
-
-  newInput: {
-    width: "100%",
-    padding: "10px",
   },
 }));
