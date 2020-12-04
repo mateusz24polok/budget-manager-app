@@ -16,7 +16,11 @@ import {
 import { Formik, Form as FormikForm, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
-import { ErrorTypes, DataIdTypes } from "../../../interfaces";
+import {
+  ErrorTypes,
+  DataIdTypes,
+  SingleExpenseInterface,
+} from "../../../interfaces";
 import { categories } from "../../../data/categories";
 import { useStyles } from "./styles";
 
@@ -30,6 +34,16 @@ const Form: React.FC<FormProps> = ({ formType }) => {
   const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const newOrEditExpense = useSelector(selectNewOrEditedExpense);
   const classes = useStyles();
+
+  const handleSubmit = (values: SingleExpenseInterface) => {
+    if (isAddExpenseModalOpen) {
+      dispatch(addExpense({ ...values, id: Math.random() }));
+      dispatch(closeAddExpenseModal());
+    } else if (isEditExpenseModalOpen) {
+      dispatch(editExpense(values));
+      dispatch(closeEditExpenseModal());
+    }
+  };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -45,17 +59,9 @@ const Form: React.FC<FormProps> = ({ formType }) => {
           }
           return errors;
         }}
-        onSubmit={(values) => {
-          if (isAddExpenseModalOpen) {
-            dispatch(addExpense(values));
-            dispatch(closeAddExpenseModal());
-          } else if (isEditExpenseModalOpen) {
-            dispatch(editExpense(values));
-            dispatch(closeEditExpenseModal());
-          }
-        }}
+        onSubmit={values => handleSubmit(values)}
       >
-        {({ submitForm, errors, resetForm }) => (
+        {({ submitForm, resetForm }) => (
           <FormikForm className={classes.root}>
             <Field
               fullWidth
