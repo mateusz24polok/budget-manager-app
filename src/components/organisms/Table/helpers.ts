@@ -36,3 +36,7 @@ export const calculateSummaryExpenses = (expenses: Array<SingleExpenseInterface>
     return accumulator + currentValue.cost;
   },0)
 }
+
+export const filterExpenses = (data: Array<SingleExpenseInterface>, filteredValue: string) => {
+  return data.filter(element=> element.expense.toLowerCase().includes(filteredValue.toLowerCase()))
+};

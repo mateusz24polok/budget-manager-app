@@ -8,21 +8,23 @@ type ExpensesSliceState = {
   isAddExpenseModalOpen: boolean;
   isEditExpenseModalOpen: boolean;
   newOrEditedExpense: SingleExpenseInterface;
+  filtersOutExpensesValue: string;
 };
 
 const initialExpense: SingleExpenseInterface = {
-    id: Math.random(),
-    expense: "",
-    cost: 0,
-    category: "Electronics",
-    date: new Date(),
-}
+  id: Math.random(),
+  expense: "",
+  cost: 0,
+  category: "Electronics",
+  date: new Date(),
+};
 
 const initialState: ExpensesSliceState = {
   expenses: exampleBodyData,
   isAddExpenseModalOpen: false,
   isEditExpenseModalOpen: false,
   newOrEditedExpense: initialExpense,
+  filtersOutExpensesValue: "",
 };
 
 const ExpensesSlice = createSlice({
@@ -34,7 +36,7 @@ const ExpensesSlice = createSlice({
     },
 
     editExpense: (state, action: PayloadAction<SingleExpenseInterface>) => {
-      const indexOfEditedExpense = state.expenses.findIndex(expense => expense.id === action.payload.id)
+      const indexOfEditedExpense = state.expenses.findIndex((expense) => expense.id === action.payload.id);
       state.expenses[indexOfEditedExpense] = {
         ...action.payload,
         id: state.newOrEditedExpense.id,
@@ -42,9 +44,7 @@ const ExpensesSlice = createSlice({
     },
 
     removeExpense: (state, action: PayloadAction<number>) => {
-      state.expenses = state.expenses.filter(
-        (expense) => expense.id !== action.payload
-      );
+      state.expenses = state.expenses.filter((expense) => expense.id !== action.payload);
     },
 
     openAddExpenseModal: (state) => {
@@ -65,6 +65,10 @@ const ExpensesSlice = createSlice({
       state.isEditExpenseModalOpen = false;
       state.newOrEditedExpense = initialExpense;
     },
+
+    handleFilteringExpenses: (state, action: PayloadAction<string>) => {
+      state.filtersOutExpensesValue = action.payload;
+    },
   },
 });
 
@@ -77,6 +81,8 @@ export const selectIsEditExpenseModalOpen = (state: RootState) =>
   selectExpensesState(state).isEditExpenseModalOpen;
 export const selectNewOrEditedExpense = (state: RootState) =>
   selectExpensesState(state).newOrEditedExpense;
+export const selectFitersOutExpensesValue = (state: RootState) =>
+  selectExpensesState(state).filtersOutExpensesValue;
 
 export const {
   addExpense,
@@ -86,6 +92,7 @@ export const {
   closeAddExpenseModal,
   openEditExpenseModal,
   closeEditExpenseModal,
+  handleFilteringExpenses,
 } = ExpensesSlice.actions;
 
 export default ExpensesSlice.reducer;
