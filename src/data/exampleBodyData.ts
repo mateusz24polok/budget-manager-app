@@ -1,6 +1,6 @@
-import { SingleExpense, TableHeaderData } from "./interfaces";
+import { SingleExpenseInterface } from "../interfaces";
 
-export const exampleData: Array<SingleExpense> = [
+export const exampleBodyData: Array<SingleExpenseInterface> = [
   {
     id: 0,
     expense: "New TV",
@@ -39,37 +39,5 @@ export const exampleData: Array<SingleExpense> = [
     cost: 20,
     category: "Hygiene",
     date: new Date(),
-  },
-];
-
-export const exampleHeaderData: Array<TableHeaderData> = [
-  {
-    name: "expense",
-    label: "Expense",
-    sortable: true,
-  },
-
-  {
-    name: "cost",
-    label: "Cost $",
-    sortable: true,
-  },
-
-  {
-    name: "category",
-    label: "Category",
-    sortable: true,
-  },
-
-  {
-    name: "date",
-    label: "Date",
-    sortable: true,
-  },
-
-  {
-    name: "actions",
-    label: "Edit / Remove",
-    sortable: false,
   },
 ];

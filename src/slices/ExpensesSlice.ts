@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { exampleData } from "../exampleData";
+import { exampleBodyData } from "../data/exampleBodyData";
 import { RootState } from "../store";
-import { SingleExpense } from "../interfaces";
+import { SingleExpenseInterface } from "../interfaces";
 
 type ExpensesSliceState = {
-  expenses: Array<SingleExpense>;
+  expenses: Array<SingleExpenseInterface>;
   isAddExpenseModalOpen: boolean;
   isEditExpenseModalOpen: boolean;
-  newOrEditedExpense: SingleExpense;
+  newOrEditedExpense: SingleExpenseInterface;
 };
 
-const initialExpense: SingleExpense = {
+const initialExpense: SingleExpenseInterface = {
     id: Math.random(),
     expense: "",
     cost: 0,
@@ -19,7 +19,7 @@ const initialExpense: SingleExpense = {
 }
 
 const initialState: ExpensesSliceState = {
-  expenses: exampleData,
+  expenses: exampleBodyData,
   isAddExpenseModalOpen: false,
   isEditExpenseModalOpen: false,
   newOrEditedExpense: initialExpense,
@@ -29,11 +29,11 @@ const ExpensesSlice = createSlice({
   name: "expenses",
   initialState,
   reducers: {
-    addExpense: (state, action: PayloadAction<SingleExpense>) => {
+    addExpense: (state, action: PayloadAction<SingleExpenseInterface>) => {
       state.expenses.push(action.payload);
     },
 
-    editExpense: (state, action: PayloadAction<SingleExpense>) => {
+    editExpense: (state, action: PayloadAction<SingleExpenseInterface>) => {
       const indexOfEditedExpense = state.expenses.findIndex(expense => expense.id === action.payload.id)
       state.expenses[indexOfEditedExpense] = {
         ...action.payload,
@@ -56,7 +56,7 @@ const ExpensesSlice = createSlice({
       state.newOrEditedExpense = initialExpense;
     },
 
-    openEditExpenseModal: (state, action: PayloadAction<SingleExpense>) => {
+    openEditExpenseModal: (state, action: PayloadAction<SingleExpenseInterface>) => {
       state.isEditExpenseModalOpen = true;
       state.newOrEditedExpense = action.payload;
     },

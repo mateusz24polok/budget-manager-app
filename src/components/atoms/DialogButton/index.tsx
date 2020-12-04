@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core";
 import React from "react";
+import { Button } from "@material-ui/core";
 
 interface DialogButtonProps {
   onClick: () => void;
@@ -9,9 +9,10 @@ interface DialogButtonProps {
   children?: React.ReactText;
   fullWidth?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
+  style?: {} | undefined;
 }
 
-const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, variant, children, fullWidth, type }) => {
+const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, variant, children, fullWidth, type, style }) => {
   return (
     <Button
       onClick={onClick}
@@ -20,6 +21,7 @@ const DialogButton: React.FC<DialogButtonProps> = ({ onClick, startIcon, color, 
       variant={variant}
       fullWidth={fullWidth}
       type={type}
+      style={style}
     >
       {children}
     </Button>

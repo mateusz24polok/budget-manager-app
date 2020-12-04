@@ -1,15 +1,14 @@
 import React from "react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  makeStyles,
-  Grid,
-} from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Grid } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import DialogButton from "../../atoms/DialogButton";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form as FormikForm, Field } from "formik";
+import { TextField, Select } from "formik-material-ui";
+import { DatePicker } from "formik-material-ui-pickers";
+import DialogButton from "../../atoms/DialogButton";
+import { categories } from "../../../data/categories";
+import { useStyles } from "./styles";
 import {
   closeAddExpenseModal,
   closeEditExpenseModal,
@@ -19,27 +18,15 @@ import {
   selectNewOrEditedExpense,
   editExpense,
 } from "../../../slices/ExpensesSlice";
-import { Formik, Form as FormikForm, Field } from "formik";
-import { TextField, Select } from "formik-material-ui";
-import { DatePicker } from "formik-material-ui-pickers";
-import { ErrorTypes } from "../../../interfaces";
+import {
+  ErrorTypes,
+  DataIdTypes,
+  SingleExpenseInterface,
+} from "../../../interfaces";
 
 interface FormProps {
   formType: "add" | "edit";
 }
-
-const categories = ["Electronics", "Grocery", "Bills", "Hobby", "Hygiene"];
-
-const useStyles = makeStyles({
-  root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-      margin: "16px 0",
-      display: "flex",
-      flexDirection: "column",
-    },
-  },
-});
 
 const Form: React.FC<FormProps> = ({ formType }) => {
   const dispatch = useDispatch();
@@ -47,6 +34,16 @@ const Form: React.FC<FormProps> = ({ formType }) => {
   const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const newOrEditExpense = useSelector(selectNewOrEditedExpense);
   const classes = useStyles();
+
+  const handleSubmit = (values: SingleExpenseInterface) => {
+    if (isAddExpenseModalOpen) {
+      dispatch(addExpense({ ...values, id: Math.random() }));
+      dispatch(closeAddExpenseModal());
+    } else if (isEditExpenseModalOpen) {
+      dispatch(editExpense(values));
+      dispatch(closeEditExpenseModal());
+    }
+  };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -62,30 +59,22 @@ const Form: React.FC<FormProps> = ({ formType }) => {
           }
           return errors;
         }}
-        onSubmit={(values) => {
-          if (isAddExpenseModalOpen) {
-            dispatch(addExpense(values));
-            dispatch(closeAddExpenseModal());
-          } else if (isEditExpenseModalOpen) {
-            dispatch(editExpense(values));
-            dispatch(closeEditExpenseModal());
-          }
-        }}
+        onSubmit={values => handleSubmit(values)}
       >
-        {({ submitForm, errors, resetForm }) => (
+        {({ submitForm, resetForm }) => (
           <FormikForm className={classes.root}>
             <Field
               fullWidth
               variant="outlined"
               label="Expense"
-              name="expense"
+              name={DataIdTypes.Expense}
               component={TextField}
             />
 
             <Field
               variant="outlined"
               label="Cost"
-              name="cost"
+              name={DataIdTypes.Cost}
               type="number"
               fullWidth
               component={TextField}
@@ -94,7 +83,11 @@ const Form: React.FC<FormProps> = ({ formType }) => {
 
             <FormControl fullWidth variant="outlined">
               <InputLabel>Category</InputLabel>
-              <Field component={Select} label="Category" name="category">
+              <Field
+                component={Select}
+                label="Category"
+                name={DataIdTypes.Category}
+              >
                 {categories.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}
@@ -108,7 +101,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               fullWidth
               inputVariant="outlined"
               format="MMM/dd/yyyy"
-              name="date"
+              name={DataIdTypes.Date}
               label="Date"
             />
 

@@ -1,36 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Close } from "@material-ui/icons";
 import {
   Dialog as MuiDialog,
   DialogTitle,
   DialogContent,
-  makeStyles,
-  Theme,
   Typography,
 } from "@material-ui/core";
 import Form from "../../organisms/Form";
 import ActionButton from "../../atoms/ActionButton";
-import { Close } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
 import {
   closeAddExpenseModal,
   closeEditExpenseModal,
 } from "../../../slices/ExpensesSlice";
+import { useStyles } from "./styles";
 
 interface DialogProps {
   actionType: "edit" | "add";
 }
-
-const useStyles = makeStyles((theme: Theme) => ({
-  dialogWrapper: {
-    padding: theme.spacing(2),
-    position: "absolute",
-    top: theme.spacing(5),
-  },
-
-  dialogTitle: {
-    padding: "0px",
-  },
-}));
 
 const Dialog: React.FC<DialogProps> = ({ actionType }) => {
   const dispatch = useDispatch();

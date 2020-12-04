@@ -1,6 +1,5 @@
 import React from "react";
 import { IconButton } from "@material-ui/core";
-import { SingleExpense } from "../../../interfaces";
 
 interface ActionButtonProps {
   children: React.ReactElement;

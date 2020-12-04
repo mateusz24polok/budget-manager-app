@@ -5,13 +5,15 @@ import { useStyles } from "./styles";
 
 interface SearchInputProps {
   value?: string;
+  size?: "small" | "medium" | undefined
   onChange?: () => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => {
+const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, size }) => {
   const classes = useStyles();
   return (
     <TextField
+      size={size}
       className={classes.margin}
       value={value}
       onChange={onChange}

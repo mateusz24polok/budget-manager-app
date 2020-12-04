@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { EditOutlined, Delete } from "@material-ui/icons";
 import {
   Paper,
   TableContainer,
@@ -9,19 +11,27 @@ import {
   TableBody,
   TablePagination,
   TableSortLabel,
+  TableFooter,
+  Typography,
 } from "@material-ui/core";
-import { EditOutlined, Delete } from "@material-ui/icons";
-import { useStyles } from "./styles";
-import { SingleExpense, TableHeaderData } from "../../../interfaces";
+import {
+  SingleExpenseInterface,
+  TableHeaderDataInterface,
+  SortingOrder,
+} from "../../../interfaces";
 import Toolbar from "../../molecules/Toolbar";
 import ActionButton from "../../atoms/ActionButton";
-import { getComparator, stableSort } from "./helpers";
-import { useDispatch } from "react-redux";
-import { removeExpense, openEditExpenseModal } from "../../../slices/ExpensesSlice";
+import {
+  removeExpense,
+  openEditExpenseModal,
+} from "../../../slices/ExpensesSlice";
+import { getComparator, stableSort, calculateSummaryExpenses } from "./helpers";
+import { useStyles } from "./styles";
+
 
 interface TableProps {
-  bodyData: Array<SingleExpense>;
-  headData: Array<TableHeaderData>;
+  bodyData: Array<SingleExpenseInterface>;
+  headData: Array<TableHeaderDataInterface>;
 }
 
 const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
@@ -32,9 +42,11 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
     dispatch(removeExpense(id));
   };
 
-  const handleOpenEditExpenseModal = (editedExpense: SingleExpense) => {
+  const handleOpenEditExpenseModal = (
+    editedExpense: SingleExpenseInterface
+  ) => {
     dispatch(openEditExpenseModal(editedExpense));
-  }
+  };
 
   //Pagination variables of state
 
@@ -61,12 +73,14 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   };
 
   //Sorting variables of state
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [order, setOrder] = useState<
+    SortingOrder.Ascending | SortingOrder.Descending
+  >(SortingOrder.Ascending);
   const [orderBy, setOrderBy] = useState<string>("");
 
   const handleRequestSort = (property: string) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === SortingOrder.Ascending;
+    setOrder(isAsc ? SortingOrder.Descending : SortingOrder.Ascending);
     setOrderBy(property);
   };
 
@@ -76,7 +90,10 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <Paper>
+    <Paper className={classes.root}>
+      <Typography variant="h3" component="h1" align="center">
+        Budget Manager
+      </Typography>
       <Toolbar />
       <TableContainer>
         <MuiTable className={classes.table}>
@@ -86,7 +103,11 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell key={dataHeadCell.name}>
                   <TableSortLabel
                     active={orderBy === dataHeadCell.name}
-                    direction={orderBy === dataHeadCell.name ? order : "asc"}
+                    direction={
+                      orderBy === dataHeadCell.name
+                        ? order
+                        : SortingOrder.Ascending
+                    }
                     onClick={() => handleRequestSort(dataHeadCell.name)}
                     disabled={!dataHeadCell.sortable}
                   >
@@ -104,16 +125,28 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell>{costDataRow.category}</TableCell>
                 <TableCell>{costDataRow.date.toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <ActionButton onClick={()=>handleOpenEditExpenseModal(costDataRow)} color="primary">
+                  <ActionButton
+                    onClick={() => handleOpenEditExpenseModal(costDataRow)}
+                    color="primary"
+                  >
                     <EditOutlined />
                   </ActionButton>
-                  <ActionButton onClick={()=>handleRemoveExpense(costDataRow.id)} color="secondary">
+                  <ActionButton
+                    onClick={() => handleRemoveExpense(costDataRow.id)}
+                    color="secondary"
+                  >
                     <Delete />
                   </ActionButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell variant="head">Summary Expenses</TableCell>
+              <TableCell variant="head">{calculateSummaryExpenses(bodyData)}</TableCell>
+            </TableRow>
+          </TableFooter>
         </MuiTable>
       </TableContainer>
       <TablePagination

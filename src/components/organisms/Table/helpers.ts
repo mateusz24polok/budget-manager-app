@@ -1,4 +1,6 @@
-type Order = 'asc' | 'desc';
+import {SortingOrder, SingleExpenseInterface} from "../../../interfaces";
+
+type Order = SortingOrder.Ascending | SortingOrder.Descending;
 
 const descendingComparator = <T>(a: T, b: T, orderBy: keyof T) => {
 if (b[orderBy] < a[orderBy]) {
@@ -14,7 +16,7 @@ export const getComparator = <Key extends keyof any>(
     order: Order,
     orderBy: Key,
   ): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number => {
-    return order === 'desc'
+    return order === SortingOrder.Descending
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
 };
@@ -28,3 +30,9 @@ export const stableSort = <T>(array: T[], comparator: (a: T, b: T) => number) =>
     });
     return stabilizedThis.map((el) => el[0]);
 };
+
+export const calculateSummaryExpenses = (expenses: Array<SingleExpenseInterface>) => {
+  return expenses.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.cost;
+  },0)
+}
