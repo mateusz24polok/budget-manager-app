@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { EditOutlined, Delete } from "@material-ui/icons";
 import { useStyles } from "./styles";
-import { SingleExpense, TableHeaderData } from "../../../interfaces";
+import { SingleExpenseInterface, TableHeaderDataInterface, SortingOrder } from "../../../interfaces";
 import Toolbar from "../../molecules/Toolbar";
 import ActionButton from "../../atoms/ActionButton";
 import { getComparator, stableSort } from "./helpers";
@@ -20,8 +20,8 @@ import { useDispatch } from "react-redux";
 import { removeExpense, openEditExpenseModal } from "../../../slices/ExpensesSlice";
 
 interface TableProps {
-  bodyData: Array<SingleExpense>;
-  headData: Array<TableHeaderData>;
+  bodyData: Array<SingleExpenseInterface>;
+  headData: Array<TableHeaderDataInterface>;
 }
 
 const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
@@ -32,7 +32,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
     dispatch(removeExpense(id));
   };
 
-  const handleOpenEditExpenseModal = (editedExpense: SingleExpense) => {
+  const handleOpenEditExpenseModal = (editedExpense: SingleExpenseInterface) => {
     dispatch(openEditExpenseModal(editedExpense));
   }
 
@@ -61,12 +61,12 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   };
 
   //Sorting variables of state
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [order, setOrder] = useState<SortingOrder.Ascending | SortingOrder.Descending>(SortingOrder.Ascending);
   const [orderBy, setOrderBy] = useState<string>("");
 
   const handleRequestSort = (property: string) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === SortingOrder.Ascending;
+    setOrder(isAsc ? SortingOrder.Descending : SortingOrder.Ascending);
     setOrderBy(property);
   };
 
@@ -86,7 +86,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
                 <TableCell key={dataHeadCell.name}>
                   <TableSortLabel
                     active={orderBy === dataHeadCell.name}
-                    direction={orderBy === dataHeadCell.name ? order : "asc"}
+                    direction={orderBy === dataHeadCell.name ? order : SortingOrder.Ascending}
                     onClick={() => handleRequestSort(dataHeadCell.name)}
                     disabled={!dataHeadCell.sortable}
                   >

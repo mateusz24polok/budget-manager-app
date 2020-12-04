@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "../../organisms/Table";
 import Dialog from "../../templates/Dialog";
-import { exampleHeaderData } from "../../../exampleData";
+import { headerData } from "../../../data/headersData";
 import { useSelector } from "react-redux";
 import {
   selectExpenses,
@@ -16,7 +16,7 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      <Table bodyData={expenses} headData={exampleHeaderData} />
+      <Table bodyData={expenses} headData={headerData} />
       {isAddExpenseModalOpen && <Dialog actionType="add" />}
       {isEditExpenseModalOpen && <Dialog actionType="edit" />}
     </>

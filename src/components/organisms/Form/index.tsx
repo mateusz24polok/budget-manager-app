@@ -22,13 +22,12 @@ import {
 import { Formik, Form as FormikForm, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
-import { ErrorTypes } from "../../../interfaces";
+import { ErrorTypes, DataIdTypes } from "../../../interfaces";
+import { categories } from "../../../data/categories";
 
 interface FormProps {
   formType: "add" | "edit";
 }
-
-const categories = ["Electronics", "Grocery", "Bills", "Hobby", "Hygiene"];
 
 const useStyles = makeStyles({
   root: {
@@ -78,14 +77,14 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               fullWidth
               variant="outlined"
               label="Expense"
-              name="expense"
+              name={DataIdTypes.Expense}
               component={TextField}
             />
 
             <Field
               variant="outlined"
               label="Cost"
-              name="cost"
+              name={DataIdTypes.Cost}
               type="number"
               fullWidth
               component={TextField}
@@ -94,7 +93,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
 
             <FormControl fullWidth variant="outlined">
               <InputLabel>Category</InputLabel>
-              <Field component={Select} label="Category" name="category">
+              <Field component={Select} label="Category" name={DataIdTypes.Category}>
                 {categories.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}
@@ -108,7 +107,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               fullWidth
               inputVariant="outlined"
               format="MMM/dd/yyyy"
-              name="date"
+              name={DataIdTypes.Date}
               label="Date"
             />
 
