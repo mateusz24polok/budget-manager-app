@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  makeStyles,
-  Grid,
-} from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Grid } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import DialogButton from "../../atoms/DialogButton";
@@ -24,21 +18,11 @@ import { TextField, Select } from "formik-material-ui";
 import { DatePicker } from "formik-material-ui-pickers";
 import { ErrorTypes, DataIdTypes } from "../../../interfaces";
 import { categories } from "../../../data/categories";
+import { useStyles } from "./styles";
 
 interface FormProps {
   formType: "add" | "edit";
 }
-
-const useStyles = makeStyles({
-  root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-      margin: "16px 0",
-      display: "flex",
-      flexDirection: "column",
-    },
-  },
-});
 
 const Form: React.FC<FormProps> = ({ formType }) => {
   const dispatch = useDispatch();
@@ -93,7 +77,11 @@ const Form: React.FC<FormProps> = ({ formType }) => {
 
             <FormControl fullWidth variant="outlined">
               <InputLabel>Category</InputLabel>
-              <Field component={Select} label="Category" name={DataIdTypes.Category}>
+              <Field
+                component={Select}
+                label="Category"
+                name={DataIdTypes.Category}
+              >
                 {categories.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}
