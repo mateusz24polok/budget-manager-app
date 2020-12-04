@@ -2,8 +2,13 @@ import React from "react";
 import { FormControl, InputLabel, MenuItem, Grid } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import DialogButton from "../../atoms/DialogButton";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form as FormikForm, Field } from "formik";
+import { TextField, Select } from "formik-material-ui";
+import { DatePicker } from "formik-material-ui-pickers";
+import DialogButton from "../../atoms/DialogButton";
+import { categories } from "../../../data/categories";
+import { useStyles } from "./styles";
 import {
   closeAddExpenseModal,
   closeEditExpenseModal,
@@ -13,16 +18,11 @@ import {
   selectNewOrEditedExpense,
   editExpense,
 } from "../../../slices/ExpensesSlice";
-import { Formik, Form as FormikForm, Field } from "formik";
-import { TextField, Select } from "formik-material-ui";
-import { DatePicker } from "formik-material-ui-pickers";
 import {
   ErrorTypes,
   DataIdTypes,
   SingleExpenseInterface,
 } from "../../../interfaces";
-import { categories } from "../../../data/categories";
-import { useStyles } from "./styles";
 
 interface FormProps {
   formType: "add" | "edit";

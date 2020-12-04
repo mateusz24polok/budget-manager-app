@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { EditOutlined, Delete } from "@material-ui/icons";
 import {
   Paper,
   TableContainer,
@@ -10,14 +12,12 @@ import {
   TablePagination,
   TableSortLabel,
 } from "@material-ui/core";
-import { EditOutlined, Delete } from "@material-ui/icons";
-import { useStyles } from "./styles";
 import { SingleExpenseInterface, TableHeaderDataInterface, SortingOrder } from "../../../interfaces";
 import Toolbar from "../../molecules/Toolbar";
 import ActionButton from "../../atoms/ActionButton";
-import { getComparator, stableSort } from "./helpers";
-import { useDispatch } from "react-redux";
 import { removeExpense, openEditExpenseModal } from "../../../slices/ExpensesSlice";
+import { getComparator, stableSort } from "./helpers";
+import { useStyles } from "./styles";
 
 interface TableProps {
   bodyData: Array<SingleExpenseInterface>;

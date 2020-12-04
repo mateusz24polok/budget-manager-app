@@ -1,8 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Table from "../../organisms/Table";
 import Dialog from "../../templates/Dialog";
 import { headerData } from "../../../data/headersData";
-import { useSelector } from "react-redux";
 import {
   selectExpenses,
   selectIsEditExpenseModalOpen,
