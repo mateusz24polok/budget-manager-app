@@ -37,7 +37,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
 
   const handleSubmit = (values: SingleExpenseInterface) => {
     if (isAddExpenseModalOpen) {
-      dispatch(addExpense({ ...values, id: Math.random() }));
+      dispatch(addExpense({ ...values, id: Math.random()}));
       dispatch(closeAddExpenseModal());
     } else if (isEditExpenseModalOpen) {
       dispatch(editExpense(values));
@@ -117,13 +117,14 @@ const Form: React.FC<FormProps> = ({ formType }) => {
                   Reset
                 </DialogButton>
               </Grid>
+
               <Grid item xs={5}>
                 <DialogButton
                   variant="contained"
                   onClick={submitForm}
                   color="primary"
                   fullWidth
-                  type="submit"
+                  type="button"
                 >
                   {formType === "add" ? "Add" : "Edit"}
                 </DialogButton>

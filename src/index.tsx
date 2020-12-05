@@ -7,13 +7,11 @@ import { theme } from "./theme/theme";
 import { store } from "./store";
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
       </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById("root")
 );
