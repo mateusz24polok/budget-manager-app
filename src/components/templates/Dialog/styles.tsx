@@ -8,6 +8,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
 
   dialogTitle: {
-    padding: "0px",
+    padding: 0,
   },
 }));

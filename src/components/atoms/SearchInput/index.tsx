@@ -4,9 +4,9 @@ import { Search } from "@material-ui/icons";
 import { useStyles } from "./styles";
 
 interface SearchInputProps {
-  value?: string;
+  value: string;
   size?: "small" | "medium" | undefined
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, size }) => {

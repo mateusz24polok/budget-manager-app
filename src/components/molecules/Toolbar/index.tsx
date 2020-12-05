@@ -26,9 +26,7 @@ const Toolbar: React.FC = () => {
     dispatch(openAddExpenseModal());
   };
 
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ): void => {
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
     dispatch(handleFilteringExpenses(event.currentTarget.value));
   };
 

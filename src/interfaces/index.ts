@@ -17,6 +17,14 @@ export interface ErrorTypes {
   cost?: string;
 }
 
+export type ExpensesSliceState = {
+  expenses: Array<SingleExpenseInterface>;
+  isAddExpenseModalOpen: boolean;
+  isEditExpenseModalOpen: boolean;
+  newOrEditedExpense: SingleExpenseInterface;
+  filtersOutExpensesValue: string;
+};
+
 export enum CategoriesTypes {
   Bills = "Bills",
   Electronics = "Electronics",
