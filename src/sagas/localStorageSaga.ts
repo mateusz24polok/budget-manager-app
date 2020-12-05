@@ -1,8 +1,9 @@
 import { select, all, takeLatest } from "redux-saga/effects";
 import { addExpense, editExpense, removeExpense, selectExpenses } from "../slices/ExpensesSlice";
+import { SingleExpenseInterface } from "../interfaces";
 
 function* localStorageActionHandler() {
-  const expenses = yield select(selectExpenses);
+  const expenses: Array<SingleExpenseInterface> = yield select(selectExpenses);
   yield localStorage.setItem("Expenses", JSON.stringify(expenses))
 }
 

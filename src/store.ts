@@ -3,7 +3,7 @@ import ExpensesSlice from "./slices/ExpensesSlice";
 import sagaMiddleware from "redux-saga";
 import { localStorageSaga } from "./sagas/localStorageSaga";
 import { getDataFromLocalStorage } from "./helpers/localStorageHelpers";
-import {initialExpense} from "./data/initialExpense";
+import { initialExpense } from "./data/initialExpense";
 
 const saga = sagaMiddleware();
 

@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { exampleBodyData } from "../data/exampleBodyData";
 import { RootState } from "../store";
-import { SingleExpenseInterface } from "../interfaces";
-
-type ExpensesSliceState = {
-  expenses: Array<SingleExpenseInterface>;
-  isAddExpenseModalOpen: boolean;
-  isEditExpenseModalOpen: boolean;
-  newOrEditedExpense: SingleExpenseInterface;
-  filtersOutExpensesValue: string;
-};
+import { SingleExpenseInterface, ExpensesSliceState } from "../interfaces";
 
 const initialExpense: SingleExpenseInterface = {
   id: Math.random(),
@@ -73,16 +65,11 @@ const ExpensesSlice = createSlice({
 });
 
 export const selectExpensesState = (state: RootState) => state.expenses;
-export const selectExpenses = (state: RootState) =>
-  selectExpensesState(state).expenses;
-export const selectIsAddExpenseModalOpen = (state: RootState) =>
-  selectExpensesState(state).isAddExpenseModalOpen;
-export const selectIsEditExpenseModalOpen = (state: RootState) =>
-  selectExpensesState(state).isEditExpenseModalOpen;
-export const selectNewOrEditedExpense = (state: RootState) =>
-  selectExpensesState(state).newOrEditedExpense;
-export const selectFitersOutExpensesValue = (state: RootState) =>
-  selectExpensesState(state).filtersOutExpensesValue;
+export const selectExpenses = (state: RootState) => selectExpensesState(state).expenses;
+export const selectIsAddExpenseModalOpen = (state: RootState) => selectExpensesState(state).isAddExpenseModalOpen;
+export const selectIsEditExpenseModalOpen = (state: RootState) => selectExpensesState(state).isEditExpenseModalOpen;
+export const selectNewOrEditedExpense = (state: RootState) => selectExpensesState(state).newOrEditedExpense;
+export const selectFitersOutExpensesValue = (state: RootState) => selectExpensesState(state).filtersOutExpensesValue;
 
 export const {
   addExpense,
