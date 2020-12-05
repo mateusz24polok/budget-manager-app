@@ -9,8 +9,9 @@ export const theme = createMuiTheme({
         },
 
         body: {
-          margin: "30px auto",
+          margin: "0 auto",
           maxWidth: "1000px",
+          
         },
       },
     },

@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: "20px",
-    margin: theme.spacing(3)
+    margin: theme.spacing(4),
   },
 
   table: {
@@ -23,15 +23,62 @@ export const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 
+  pagination: {
+    fontSize: "14px",
+  },
+
   "@media (max-width: 670px)": {
+    root: {
+      paddingTop: "10px",
+      margin: theme.spacing(0),
+      minHeight: "100vh",
+      
+    "& .MuiTablePagination-caption, .MuiTablePagination-input, .MuiTablePagination-select":{
+      fontSize: "11px",
+    }
+    },
+
+    table: {
+      "& thead th": {
+        fontSize: "11px",
+        padding: "4px",
+      },
+      "& tbody td": {
+        fontSize: "11px",
+        padding: "4px",
+      },
+
+      "& tfoot td": {
+        fontSize: "11px",
+        padding: "4px",
+      },
+    },
+  },
+
+  "@media (max-width: 347px)": {
+    root: {
+    "& .MuiTablePagination-toolbar":{
+      padding: "4px", 
+    },
+
+    "& .MuiTablePagination-caption, .MuiTablePagination-input, .MuiTablePagination-select":{
+      fontSize: "10px",
+    }
+    },
+
     table: {
       "& thead th": {
         fontSize: "10px",
-        padding: "8px"
+        padding: "2px",
       },
       "& tbody td": {
         fontSize: "10px",
-        padding: "8px"
+        padding: "2px",
+      },
+
+      "& tfoot td": {
+        fontSize: "10px",
+        padding: "2px",
       },
     },
   },

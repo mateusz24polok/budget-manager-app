@@ -13,6 +13,8 @@ import {
   TableSortLabel,
   TableFooter,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import {
   SingleExpenseInterface,
@@ -38,6 +40,9 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   const filtersOutExpensesValue = useSelector(selectFitersOutExpensesValue);
 
@@ -94,7 +99,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h3" component="h1" align="center">
+      <Typography variant={matches ? "h3" : "h4"} component="h1" align="center">
         Budget Manager
       </Typography>
       <Toolbar />
@@ -153,6 +158,7 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
         </MuiTable>
       </TableContainer>
       <TablePagination
+        className={classes.pagination}
         rowsPerPageOptions={rowsPerPageOptions}
         count={bodyData.length}
         rowsPerPage={rowsPerPage}
