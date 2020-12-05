@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/budget-manager-app/static/js/main.282d8243.chunk.js",
-    "main.js.map": "/budget-manager-app/static/js/main.282d8243.chunk.js.map",
+    "main.js": "/budget-manager-app/static/js/main.7d232c6f.chunk.js",
+    "main.js.map": "/budget-manager-app/static/js/main.7d232c6f.chunk.js.map",
     "runtime-main.js": "/budget-manager-app/static/js/runtime-main.9c256671.js",
     "runtime-main.js.map": "/budget-manager-app/static/js/runtime-main.9c256671.js.map",
-    "static/js/2.d998eeac.chunk.js": "/budget-manager-app/static/js/2.d998eeac.chunk.js",
-    "static/js/2.d998eeac.chunk.js.map": "/budget-manager-app/static/js/2.d998eeac.chunk.js.map",
+    "static/js/2.3d383ce8.chunk.js": "/budget-manager-app/static/js/2.3d383ce8.chunk.js",
+    "static/js/2.3d383ce8.chunk.js.map": "/budget-manager-app/static/js/2.3d383ce8.chunk.js.map",
     "index.html": "/budget-manager-app/index.html",
-    "static/js/2.d998eeac.chunk.js.LICENSE.txt": "/budget-manager-app/static/js/2.d998eeac.chunk.js.LICENSE.txt"
+    "static/js/2.3d383ce8.chunk.js.LICENSE.txt": "/budget-manager-app/static/js/2.3d383ce8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9c256671.js",
-    "static/js/2.d998eeac.chunk.js",
-    "static/js/main.282d8243.chunk.js"
+    "static/js/2.3d383ce8.chunk.js",
+    "static/js/main.7d232c6f.chunk.js"
   ]
 }
