@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Grid } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Grid, useMediaQuery } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +34,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
   const isEditExpenseModalOpen = useSelector(selectIsEditExpenseModalOpen);
   const newOrEditExpense = useSelector(selectNewOrEditedExpense);
   const classes = useStyles();
+  const matches = useMediaQuery('(max-height: 550px) and (orientation: landscape)');
 
   const handleSubmit = (values: SingleExpenseInterface) => {
     if (isAddExpenseModalOpen) {
@@ -69,6 +70,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               label="Expense"
               name={DataIdTypes.Expense}
               component={TextField}
+              size={matches ? "small" : "medium"}
             />
 
             <Field
@@ -79,6 +81,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               fullWidth
               component={TextField}
               InputProps={{ inputProps: { min: 0 } }}
+              size={matches ? "small" : "medium"}
             />
 
             <FormControl fullWidth variant="outlined">
@@ -103,6 +106,7 @@ const Form: React.FC<FormProps> = ({ formType }) => {
               format="MMM/dd/yyyy"
               name={DataIdTypes.Date}
               label="Date"
+              size={matches ? "small" : "medium"}
             />
 
             <Grid container justify="center" spacing={2}>

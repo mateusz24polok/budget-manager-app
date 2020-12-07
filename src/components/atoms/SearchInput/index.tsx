@@ -6,14 +6,16 @@ import { useStyles } from "./styles";
 interface SearchInputProps {
   value: string;
   size?: "small" | "medium" | undefined
+  style?: {} | undefined;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, size }) => {
+const SearchInput: React.FC<SearchInputProps> = ({ value, onChange, size, style }) => {
   const classes = useStyles();
   return (
     <TextField
       size={size}
+      style={style}
       className={classes.margin}
       value={value}
       onChange={onChange}
