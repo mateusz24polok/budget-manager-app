@@ -2,6 +2,8 @@ import {SortingOrder, SingleExpenseInterface} from "../../../interfaces";
 
 type Order = SortingOrder.Ascending | SortingOrder.Descending;
 
+// Standard functions from Material-UI library for sorting table values 
+
 const descendingComparator = <T>(a: T, b: T, orderBy: keyof T) => {
 if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -30,6 +32,8 @@ export const stableSort = <T>(array: T[], comparator: (a: T, b: T) => number) =>
     });
     return stabilizedThis.map((el) => el[0]);
 };
+
+//Helper functions for calculate summary expenses and filter expenses in the table
 
 export const calculateSummaryExpenses = (expenses: Array<SingleExpenseInterface>) => {
   return expenses.reduce((accumulator, currentValue) => {

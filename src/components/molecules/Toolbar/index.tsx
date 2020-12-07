@@ -42,6 +42,7 @@ const Toolbar: React.FC = () => {
           value={filteringExpenses}
           onChange={handleSearchInputChange}
           size={matches ? "medium" : "small"}
+          style={matches ? undefined : { width: "242px"}}
         />
         <DialogButton
           onClick={openAddExpenseModalHandler}

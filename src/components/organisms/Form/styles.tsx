@@ -8,5 +8,11 @@ export const useStyles = makeStyles({
       display: "flex",
       flexDirection: "column",
     },
+
+    "@media (max-height: 550px) and (orientation: landscape)": {
+      "& .MuiSelect-root": {
+        padding: "10.5px 14px",
+      },
+    },
   },
 });

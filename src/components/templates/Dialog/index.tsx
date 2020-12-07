@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Close } from "@material-ui/icons";
-import { Dialog as MuiDialog, DialogTitle, DialogContent, Typography } from "@material-ui/core";
+import { Dialog as MuiDialog, DialogTitle, DialogContent, Typography, useMediaQuery } from "@material-ui/core";
 import Form from "../../organisms/Form";
 import ActionButton from "../../atoms/ActionButton";
 import { closeAddExpenseModal, closeEditExpenseModal } from "../../../slices/ExpensesSlice";
@@ -14,6 +14,7 @@ interface DialogProps {
 const Dialog: React.FC<DialogProps> = ({ actionType }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const matches = useMediaQuery('(max-height: 550px) and (orientation: landscape)');
 
   const handleClose = () => {
     if (actionType === "add") {
@@ -27,7 +28,7 @@ const Dialog: React.FC<DialogProps> = ({ actionType }) => {
     <MuiDialog open classes={{ paper: classes.dialogWrapper }}>
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
-          <Typography variant="h5" component="h2" style={{ flexGrow: 1 }}>
+          <Typography variant={matches ? "h6" : "h5"} component="h2" style={{ flexGrow: 1 }}>
             {actionType === "add" ? "Add Expense" : "Edit Expense"}
           </Typography>
           <ActionButton onClick={handleClose} color="secondary">
