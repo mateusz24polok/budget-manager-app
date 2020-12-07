@@ -44,15 +44,14 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
+  //Variable which represent value for expenses filtering that You type in input above the table
   const filtersOutExpensesValue = useSelector(selectFitersOutExpensesValue);
 
   const handleRemoveExpense = (id: number) => {
     dispatch(removeExpense(id));
   };
 
-  const handleOpenEditExpenseModal = (
-    editedExpense: SingleExpenseInterface
-  ) => {
+  const handleOpenEditExpenseModal = (editedExpense: SingleExpenseInterface) => {
     dispatch(openEditExpenseModal(editedExpense));
   };
 
@@ -81,16 +80,19 @@ const Table: React.FC<TableProps> = ({ bodyData, headData }) => {
   };
 
   //Sorting variables of state
-  const [order, setOrder] = useState<
-    SortingOrder.Ascending | SortingOrder.Descending
-  >(SortingOrder.Ascending);
+
+  const [order, setOrder] = useState<SortingOrder.Ascending | SortingOrder.Descending>(SortingOrder.Ascending);
   const [orderBy, setOrderBy] = useState<string>("");
+
+  //Function that start sorting table head values after click on that header
 
   const handleRequestSort = (property: string) => {
     const isAsc = orderBy === property && order === SortingOrder.Ascending;
     setOrder(isAsc ? SortingOrder.Descending : SortingOrder.Ascending);
     setOrderBy(property);
   };
+
+  //Variable which represent final data that come to the display table
 
   const sortedAndPagingData = stableSort<any>(
     filterExpenses(bodyData, filtersOutExpensesValue),
